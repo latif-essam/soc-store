@@ -1,0 +1,59 @@
+{
+  "name": "soc-store",
+  "version": "1.0.0",
+  "description": "node backend for connecting postgresql with node app in local pc, or docker container",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run build && node ./dist/index.js",
+    "dev": "nodemon src/index.ts",
+    "build": "npm run clean &&set ENV=test&& npx tsc",
+    "migrate": "db-migrate --env test up && db-migrate up",
+    "test": "npm run build&&db-migrate --env test up&&jasmine&&db-migrate db:drop test",
+    "tests": "db-migrate --env test up && jasmine-ts && db-migrate db:drop test",
+    "jasmine": "jasmine",
+    "lint": "eslint . --ext .ts",
+    "prettier": "prettier src/ --write",
+    "clean": "rm -rf ./dist"
+  },
+  "keywords": [],
+  "author": "latif essam",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/latif-essam/soc-store.git"
+  },
+  "bugs": {
+    "url": "https://github.com/latif-essam/soc-store/issues"
+  },
+  "homepage": "https://github.com/latif-essam/soc-store#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "db-migrate": "^0.11.13",
+    "db-migrate-pg": "^1.2.2",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "pg": "^8.7.3"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/express": "^4.17.13",
+    "@types/jasmine": "^4.0.3",
+    "@types/node": "^17.0.38",
+    "@types/pg": "^8.6.5",
+    "@types/supertest": "^2.0.12",
+    "@typescript-eslint/eslint-plugin": "^5.27.0",
+    "@typescript-eslint/parser": "^5.27.0",
+    "eslint": "^8.16.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jasmine": "^4.1.0",
+    "jasmine-spec-reporter": "^7.0.0",
+    "nodemon": "^2.0.16",
+    "prettier": "^2.6.2",
+    "supertest": "^6.2.3",
+    "ts-node": "^10.8.0",
+    "tsc-watch": "^5.0.3",
+    "typescript": "^4.7.2"
+  }
+}
