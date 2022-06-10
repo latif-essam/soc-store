@@ -1,4 +1,5 @@
 POST http://localhost:3001/api/users
+Accept-Language: application/json
 
 {
     "first_name":"latif",

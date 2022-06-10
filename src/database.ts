@@ -1,18 +1,23 @@
-import dotenv from "dotenv";
 import { Pool } from "pg";
-
+import dotenv from "dotenv";
 dotenv.config();
 
-const { POSTGRES_HOST, POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD } =
-  process.env;
+const {
+  POSTGRES_PORT,
+  POSTGRES_HOST,
+  POSTGRES_DB,
+  POSTGRES_USER,
+  POSTGRES_PASSWORD,
+} = process.env;
 
-console.log({ POSTGRES_DB, POSTGRES_HOST, POSTGRES_PASSWORD, POSTGRES_USER });
+// console.log({ POSTGRES_DB, POSTGRES_HOST, POSTGRES_PASSWORD, POSTGRES_USER });
 
 const db = new Pool({
-  host: "localhost",
-  database: "soc_store",
-  user: "latif_essam",
-  password: "l1234",
+  user: POSTGRES_USER,
+  password: POSTGRES_PASSWORD,
+  host: POSTGRES_HOST,
+  database: POSTGRES_DB,
+  port: POSTGRES_PORT as unknown as number,
 });
 
 export default db;
