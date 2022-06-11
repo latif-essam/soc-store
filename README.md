@@ -85,4 +85,4 @@
 
 ## Database Schema:
 
-![db schema](https://github.com/latif-essam/soc-store/Database_ER_diagram.png)
+![db schema](https://github.com/latif-essam/soc-store/blob/main/Database_ER_diagram.png)
