@@ -35,8 +35,7 @@ const create = async (req: Request, res: Response) => {
     const updataedCategory: Category = { ...req.body, status: "active" };
 
     const category = await store.create(updataedCategory);
-    const token = jwt.sign({ category }, TOKEN as string);
-    res.status(200).json(token);
+    res.status(200).json(category);
   } catch (error) {
     res.status(400).json(error);
   }
@@ -74,7 +73,7 @@ const destroy = async (req: Request, res: Response) => {
 
 const categoryRoutes = (app: Application) => {
   app.get("/api/categorys", index);
-  app.get("/api/category/:id", show);
+  app.get("/api/category/:id", authorization, show);
   app.post("/api/categorys", authorization, create);
   app.put("/api/categorys/:id", authorization, update);
   app.delete("/api/categorys/:id", authorization, destroy);

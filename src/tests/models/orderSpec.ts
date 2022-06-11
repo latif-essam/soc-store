@@ -41,7 +41,6 @@ describe("Order Model", () => {
       ...staticOrder,
       user_id: user?.id as unknown as number,
     });
-    console.log({ user, product });
     expect(product?.user_id).toEqual(user?.id as unknown as number);
   });
 

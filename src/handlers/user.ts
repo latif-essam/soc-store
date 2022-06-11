@@ -2,6 +2,7 @@ import { User, Users } from "../models/user";
 import { Request, Response, Application } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv";
+import authorization from "./../middlewares/authorization";
 
 dotenv.config();
 const { TOKEN } = process.env;
@@ -21,7 +22,7 @@ const getAllUsers = async (_req: Request, res: Response) => {
 
 const getUser = async (req: Request, res: Response) => {
   try {
-    const user = await store.show(req.params.id);
+    const user = await store.show(req.params.id as unknown as number);
     res.status(200).json(user);
   } catch (error) {
     res.status(400).json(error);
@@ -94,11 +95,11 @@ const destroy = async (req: Request, res: Response) => {
 
 const userRoutes = (app: Application) => {
   app.get("/api/users", getAllUsers);
-  app.get("/api/user/:id", getUser);
+  app.get("/api/user/:id", authorization, getUser);
   app.post("/api/users", createUser);
   app.get("/api/auth", authenticate);
-  app.put("/api/users/:id", updateUser);
-  app.delete("/api/users/:id", destroy);
+  app.put("/api/users/:id", authorization, updateUser);
+  app.delete("/api/users/:id", authorization, destroy);
 };
 
 export default userRoutes;

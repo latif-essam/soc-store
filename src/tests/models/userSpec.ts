@@ -38,12 +38,18 @@ describe("User Model", () => {
     expect(users?.length).toBeGreaterThan(0);
   });
   it("Show Method should return a single  user", async () => {
-    const user: User | undefined = await store.show(staticUser.username);
-    expect(user?.username).toEqual(staticUser.username);
+    const users: User[] | undefined = await store.index();
+    const user: User | undefined = await store.show(
+      users?.[0].id as unknown as number
+    );
+    expect(user?.first_name).toEqual(staticUser.first_name);
   });
   it("Update Method should return an Updated user", async () => {
     // get the user
-    const user: User | undefined = await store.show(staticUser.username);
+    const users: User[] | undefined = await store.index();
+    const user: User | undefined = await store.show(
+      users?.[0].id as unknown as number
+    );
     const newUser: User | unknown = { ...user, first_name: "Maradona" };
     const updatedUser: User | undefined = await store.update(
       newUser as unknown as User
@@ -52,7 +58,10 @@ describe("User Model", () => {
   });
   it("Destroy Method should return The deleted user", async () => {
     // get user id
-    const user: User | undefined = await store.show(staticUser.username);
+    const users: User[] | undefined = await store.index();
+    const user: User | undefined = await store.show(
+      users?.[0].id as unknown as number
+    );
 
     const deletedUser: User | undefined = await store.destroy(
       user?.id as unknown as number

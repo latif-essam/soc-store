@@ -32,10 +32,8 @@ const show = async (req: Request, res: Response) => {
 const create = async (req: Request, res: Response) => {
   try {
     const product: Product = req.body;
-
     const newProduct = await store.create(product);
-    const token = jwt.sign({ newProduct }, TOKEN as string);
-    res.status(200).json(token);
+    res.status(200).json(newProduct);
   } catch (error) {
     res.status(400).json(error);
   }

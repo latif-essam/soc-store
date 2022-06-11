@@ -20,7 +20,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use("/", logger);
+// app.use("/", logger);
 app.use(express.json());
 
 app.get("/", (req, res) => {
