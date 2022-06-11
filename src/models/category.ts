@@ -88,25 +88,4 @@ export class Categorys {
       throw new Error("Error deleting Category, error: " + error);
     }
   }
-
-  //   async addCategoryToProduct(
-  //     categoryId: string,
-  //     productId: string
-  //   ): Promise<object> {
-  //     try {
-  //       const sql =
-  //         "INSERT INTO product_categorys (category_id, product_id) VALUES ($1, $2) RETURNING *";
-  //       const conn = await Client.connect();
-  //       const result = await conn.query(sql, [categoryId, productId]);
-  //       conn.release();
-
-  //       const Category = result.rows[0];
-
-  //       return Category;
-  //     } catch (err) {
-  //       throw new Error(
-  //         `Could not add category ${categoryId} to product ${productId}. Error:${err}`
-  //       );
-  //     }
-  //   }
 }
