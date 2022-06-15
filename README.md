@@ -53,7 +53,12 @@
 | `/api/products/:id`  | get, delete, and update product by id        |
 | `/api/orders`        | create new order, get all orders             |
 | `/api/orders/:id`    | get, delete, and update order by id          |
+| `/api/orders/:id/products`|get order Products                       |
+| `/api/orders/:id/products`|add product to order                       |
 | `/api/categorys`     | create new category, get all categorys       |
+| `/api/categorys/:id` | get, delete, and update category by id       |
+| `/api/categorys/:id/prodcuts` | get category products               |
+| `/api/categorys/:id/prodcuts` | add product to category             |
 | `/api/categorys/:id` | get, delete, and update category by id       |
 | `/invalid`           | handles invalid url / bad requests           |
 
