@@ -8,12 +8,11 @@
     "dev": "nodemon src/index.ts",
     "build": "npm run clean &&set ENV=test&& npx tsc",
     "migrate": "db-migrate --env test up && db-migrate up",
-    "test": "SET ENV=test&&db-migrate --env test up&&npm run build&&jasmine&&db-migrate db:drop test",
     "jasmine": "jasmine",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier src/ --write",
     "clean": "rm -rf ./dist",
-    "tes": "set ENV=test& db-migrate reset --env test && db-migrate up --env test &&npm run build&& npm run jasmine"
+    "test": "set ENV=test& db-migrate reset --env test && db-migrate up --env test &&npm run build&& npm run jasmine"
   },
   "keywords": [],
   "author": "latif essam",
