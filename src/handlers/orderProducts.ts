@@ -1,7 +1,7 @@
 import { OrderProduct, OrderProducts } from "../models/orderProducts";
 import { Request, Response, Application } from "express";
 
-import authorization from "./../middlewares/authorization";
+import { authorization } from "./../middlewares/authorization";
 
 const store = new OrderProducts();
 const addProductToOrder = async (req: Request, res: Response) => {

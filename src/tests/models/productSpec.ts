@@ -1,15 +1,9 @@
 import { Product, Products } from "../../models/product";
-import { crud } from "./../../constants/testing";
+import { crud, staticProduct } from "./../../constants/testing";
 
 const store = new Products();
 
 describe("Product Model", () => {
-  const staticProduct: Product = {
-    name: "Master Sunglass",
-    price: 150,
-    quantity: 20,
-    category: "Sun",
-  };
   beforeAll(async () => {
     // remove all products
     const products = await store.index();

@@ -12,7 +12,8 @@
     "jasmine": "jasmine",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier src/ --write",
-    "clean": "rm -rf ./dist"
+    "clean": "rm -rf ./dist",
+    "tes": "set NODE_ENV=test& db-migrate reset --env test && db-migrate up --env test &&npm run build&& npm run jasmine"
   },
   "keywords": [],
   "author": "latif essam",

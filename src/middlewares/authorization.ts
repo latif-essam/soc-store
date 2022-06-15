@@ -6,19 +6,17 @@ dotenv.config();
 
 const { TOKEN } = process.env;
 
-const authorization = (
+export const authorization = (
   req: Request,
   res: Response,
   next: NextFunction
 ): void => {
   try {
-    const token = req.headers.authorization?.split(" ")[1];
-    jwt.verify(token!, TOKEN!);
+    const token: string | undefined = req.headers.authorization?.split(" ")[1];
+    jwt.verify(token as string, TOKEN as string);
+    next();
   } catch (error) {
     console.log({ error });
-    res.status(402).json({ message: `Access denied, error: ${error}` });
-    return;
+    res.status(401).json(`Access denied Invalid Token, error: ${error}`);
   }
-  next();
 };
-export default authorization;

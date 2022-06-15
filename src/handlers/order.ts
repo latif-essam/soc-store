@@ -2,7 +2,7 @@ import { Order, Orders } from "../models/order";
 import { Request, Response, Application } from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import authorization from "./../middlewares/authorization";
+import { authorization } from "./../middlewares/authorization";
 
 dotenv.config();
 const { TOKEN } = process.env;
@@ -73,7 +73,7 @@ const destroy = async (req: Request, res: Response) => {
 
 const orderRoutes = (app: Application) => {
   app.get("/api/orders", index);
-  app.get("/api/order/:id", show);
+  app.get("/api/orders/:id", authorization, show);
   app.post("/api/orders", authorization, create);
   app.put("/api/orders/:id", authorization, update);
   app.delete("/api/orders/:id", authorization, destroy);

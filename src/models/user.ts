@@ -39,12 +39,14 @@ export class Users {
       const conn = await db.connect();
       const sql = "SELECT * FROM  users WHERE id=$1";
 
-      const result = await conn.query(sql, [id]);
+      const { rows } = await conn.query(sql, [id]);
       conn.release();
-      return result.rows[0];
+      if (rows.length < 1)
+        throw new Error(`no associated user with this id: ${id}`);
+      return rows[0];
     } catch (error) {
       console.log({ error });
-      throw new Error("error getting user from users table error: " + error);
+      throw new Error("error getting user from users table, error: " + error);
     }
   }
   // craete new user
@@ -52,7 +54,7 @@ export class Users {
     try {
       const conn = await db.connect();
       const sql =
-        "INSERT INTO users (first_name,last_name,username,password_digest) VALUES($1,$2,$3,$4) RETURNING *";
+        "INSERT INTO users (first_name, last_name, username, password_digest) VALUES ($1,$2,$3,$4) RETURNING *";
 
       const hash = bcrypt.hashSync(
         u.password + BCRYPT_PASSWORD,
@@ -72,25 +74,6 @@ export class Users {
       console.log({ error });
       throw new Error("error creating new user, error: " + error);
     }
-  }
-
-  // user access db auth
-  async authenticate(username: string, password: string): Promise<User | null> {
-    const conn = await db.connect();
-    const sql = "SELECT password_digest FROM users WHERE username=$1";
-
-    const result = await conn.query(sql, [username]);
-
-    if (result.rows.length) {
-      const user = result.rows[0];
-      console.log(user);
-      if (
-        bcrypt.compareSync(password + BCRYPT_PASSWORD, user.password_digest)
-      ) {
-        return user;
-      }
-    }
-    return null;
   }
 
   // update user info:
@@ -132,6 +115,30 @@ export class Users {
     } catch (error) {
       console.log({ error });
       throw new Error("error removing user, error: " + error);
+    }
+  }
+
+  // user access db auth
+  async authenticate(username: string, password: string): Promise<User | null> {
+    try {
+      const conn = await db.connect();
+      const sql = "SELECT * FROM users WHERE username=$1";
+
+      const result = await conn.query(sql, [username]);
+
+      if (result.rows.length) {
+        const user = result.rows[0];
+        console.log(user);
+        if (
+          bcrypt.compareSync(password + BCRYPT_PASSWORD, user.password_digest)
+        ) {
+          return user;
+        }
+      }
+      return null;
+    } catch (error) {
+      console.log({ error });
+      throw new Error("error authenticating user, error: " + error);
     }
   }
 }

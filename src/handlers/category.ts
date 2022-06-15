@@ -2,7 +2,7 @@ import { Category, Categorys } from "../models/category";
 import { Request, Response, Application } from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import authorization from "./../middlewares/authorization";
+import { authorization } from "./../middlewares/authorization";
 
 dotenv.config();
 const { TOKEN } = process.env;
@@ -73,7 +73,7 @@ const destroy = async (req: Request, res: Response) => {
 
 const categoryRoutes = (app: Application) => {
   app.get("/api/categorys", index);
-  app.get("/api/category/:id", authorization, show);
+  app.get("/api/categorys/:id", authorization, show);
   app.post("/api/categorys", authorization, create);
   app.put("/api/categorys/:id", authorization, update);
   app.delete("/api/categorys/:id", authorization, destroy);

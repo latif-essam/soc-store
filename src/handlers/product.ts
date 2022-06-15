@@ -2,7 +2,7 @@ import { Product, Products } from "../models/product";
 import { Request, Response, Application } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv";
-import authorization from "./../middlewares/authorization";
+import { authorization } from "./../middlewares/authorization";
 
 dotenv.config();
 const { TOKEN } = process.env;
@@ -23,7 +23,8 @@ const index = async (_req: Request, res: Response) => {
 const show = async (req: Request, res: Response) => {
   try {
     const product = await store.show(req.params.id as unknown as number);
-    res.status(200).json(product);
+    const token = req.headers.authorization?.split(" ")[1];
+    res.status(200).json({ ...product, token });
   } catch (error) {
     res.status(400).json(error);
   }
@@ -31,8 +32,14 @@ const show = async (req: Request, res: Response) => {
 
 const create = async (req: Request, res: Response) => {
   try {
-    const product: Product = req.body;
-    const newProduct = await store.create(product);
+    jwt.verify(req.body.token, TOKEN as string);
+  } catch (error) {
+    res.status(401).json(`Invalid token, error: ${error}`);
+    return;
+  }
+  try {
+    const { name, price, category, quantity }: Product = req.body;
+    const newProduct = await store.create({ name, price, category, quantity });
     res.status(200).json(newProduct);
   } catch (error) {
     res.status(400).json(error);
@@ -73,10 +80,10 @@ const destroy = async (req: Request, res: Response) => {
 
 const productRoutes = (app: Application) => {
   app.get("/api/products", index);
-  app.get("/api/product/:id", show);
-  app.post("/api/products", authorization, create);
-  app.put("/api/products/:id", authorization, update);
-  app.delete("/api/products/:id", authorization, destroy);
+  app.get("/api/products/:id", show);
+  app.post("/api/products", [authorization], create);
+  app.put("/api/products/:id", [authorization], update);
+  app.delete("/api/products/:id", [authorization], destroy);
 };
 
 export default productRoutes;

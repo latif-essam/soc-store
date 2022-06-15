@@ -1,6 +1,6 @@
 import { ProductCategory, ProductCategorys } from "../models/productCategorys";
 import { Request, Response, Application } from "express";
-import authorization from "./../middlewares/authorization";
+import { authorization } from "./../middlewares/authorization";
 
 const store = new ProductCategorys();
 const addProductToCategory = async (req: Request, res: Response) => {
@@ -13,7 +13,11 @@ const addProductToCategory = async (req: Request, res: Response) => {
   }
 };
 const productCategoryRoutes = (app: Application) => {
-  app.post("/api/categorys/:id/products", authorization, addProductToCategory);
+  app.post(
+    "/api/categorys/:id/products",
+    [authorization],
+    addProductToCategory
+  );
 };
 
 export default productCategoryRoutes;

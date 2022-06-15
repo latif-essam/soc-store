@@ -1,5 +1,5 @@
 import { User, Users } from "../../models/user";
-import { crud } from "./../../constants/testing";
+import { crud, staticUser } from "./../../constants/testing";
 
 const store = new Users();
 
@@ -9,12 +9,6 @@ describe("User Model", () => {
     const users = await store.index();
     users?.map((user) => store.destroy(user.id as unknown as number));
   });
-  const staticUser: User = {
-    first_name: "latif",
-    last_name: "essam",
-    username: "lolpop",
-    password: "lolpop123",
-  };
 
   crud.map((method) =>
     it(`Should have ${method} Method`, () => {
