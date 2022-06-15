@@ -1,86 +1,96 @@
 import { Product, Products } from "../models/product";
 import { Request, Response, Application } from "express";
-import jwt, { JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv";
 import { authorization } from "./../middlewares/authorization";
 
 dotenv.config();
-const { TOKEN } = process.env;
 
 const store = new Products();
 
 const index = async (_req: Request, res: Response) => {
   try {
     const products = await store.index();
-
-    res.status(200).json(products);
+    res.json(products);
   } catch (error) {
-    console.log({ error });
-    res.status(400).json(error);
+    res.status(400).json({ error });
   }
 };
 
 const show = async (req: Request, res: Response) => {
   try {
-    const product = await store.show(req.params.id as unknown as number);
-    const token = req.headers.authorization?.split(" ")[1];
-    res.status(200).json({ ...product, token });
+    const id: number = parseInt(req.params.id);
+    const product = await store.show(id);
+
+    res.json(product);
   } catch (error) {
-    res.status(400).json(error);
+    res.status(400).json({ error });
   }
 };
 
 const create = async (req: Request, res: Response) => {
-  try {
-    jwt.verify(req.body.token, TOKEN as string);
-  } catch (error) {
-    res.status(401).json(`Invalid token, error: ${error}`);
-    return;
-  }
+  // try {
+  //   jwt.verify(req.body.token, SECRET_TOKEN as string);
+  // } catch (error) {
+  //   res.status(401).json(`Invalid token, error: ${error}`);
+  //   return;
+  // }
   try {
     const { name, price, category, quantity }: Product = req.body;
-    const newProduct = await store.create({ name, price, category, quantity });
-    res.status(200).json(newProduct);
+    const addedProduct = await store.create({
+      name,
+      price,
+      category,
+      quantity,
+    });
+    res.json(addedProduct);
   } catch (error) {
-    res.status(400).json(error);
+    res.status(400).json({ error });
   }
 };
 
 const update = async (req: Request, res: Response) => {
   try {
-    const updatedproduct: Product = req.body;
+    const { id, name, price, category, quantity }: Product = req.body;
 
-    const product = await store.update(updatedproduct);
+    const updatedProduct = await store.update({
+      id,
+      name,
+      price,
+      category,
+      quantity,
+    });
 
-    if (product) {
-      res.status(200).json(product);
+    if (updatedProduct) {
+      res.json(updatedProduct);
     } else {
-      res.status(400).send("product not found");
+      res.status(400).send(`product with id = ${id} not found`);
     }
   } catch (error) {
-    res.status(400).json(error);
+    res.status(400).json({ error });
   }
 };
 
 const destroy = async (req: Request, res: Response) => {
   try {
-    const deletedproduct = await store.destroy(
-      req.params.id as unknown as number
-    );
+    const id: number = parseInt(req.params.id);
+    const deletedproduct = await store.destroy(id);
 
     if (deletedproduct) {
-      res.status(202).json(deletedproduct);
+      res.json(deletedproduct);
     } else {
-      res.status(404).send("product not found");
+      res.status(400).send(`product with id = ${id} not found`);
     }
   } catch (error) {
-    res.status(400).json(error);
+    res.status(400).json({ error });
   }
 };
 
 const productRoutes = (app: Application) => {
+  // token is not required here as stated in REQUIREMENTS.md
   app.get("/api/products", index);
   app.get("/api/products/:id", show);
+
+  // token is required here
   app.post("/api/products", [authorization], create);
   app.put("/api/products/:id", [authorization], update);
   app.delete("/api/products/:id", [authorization], destroy);

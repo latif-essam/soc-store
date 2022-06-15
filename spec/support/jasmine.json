@@ -1,17 +1,11 @@
 {
   "spec_dir": "./dist/src/tests",
-
   "spec_files": ["**/*[sS]pec.js"],
-
   "helpers": ["helpers/**/*.js"],
-
   "env": {
     "failSpecWithNoExpectations": false,
-
     "stopSpecOnExpectationFailure": false,
-
     "stopOnSpecFailure": false,
-
     "random": false
   },
   "stopSpecOnExpectationFailure": false,

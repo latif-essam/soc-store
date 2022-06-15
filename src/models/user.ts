@@ -26,7 +26,6 @@ export class Users {
       conn.release();
       return result.rows;
     } catch (error) {
-      console.log({ error });
       throw new Error("error getting users from users table error: " + error);
     }
   }
@@ -45,7 +44,6 @@ export class Users {
         throw new Error(`no associated user with this id: ${id}`);
       return rows[0];
     } catch (error) {
-      console.log({ error });
       throw new Error("error getting user from users table, error: " + error);
     }
   }
@@ -71,7 +69,6 @@ export class Users {
       conn.release();
       return result.rows[0];
     } catch (error) {
-      console.log({ error });
       throw new Error("error creating new user, error: " + error);
     }
   }
@@ -95,11 +92,11 @@ export class Users {
         hash,
         u.id,
       ]);
+
       conn.release();
 
       return result.rows[0];
     } catch (error) {
-      console.log({ error });
       throw new Error("error updating  user" + u.username + " error: " + error);
     }
   }
@@ -113,7 +110,6 @@ export class Users {
 
       return result.rows[0];
     } catch (error) {
-      console.log({ error });
       throw new Error("error removing user, error: " + error);
     }
   }
@@ -128,7 +124,6 @@ export class Users {
 
       if (result.rows.length) {
         const user = result.rows[0];
-        console.log(user);
         if (
           bcrypt.compareSync(password + BCRYPT_PASSWORD, user.password_digest)
         ) {
@@ -137,7 +132,6 @@ export class Users {
       }
       return null;
     } catch (error) {
-      console.log({ error });
       throw new Error("error authenticating user, error: " + error);
     }
   }

@@ -19,7 +19,6 @@ export class Products {
       conn.release();
       return result.rows;
     } catch (error) {
-      console.log({ error });
       throw new Error(
         "error getting products from products table error: " + error
       );
@@ -38,7 +37,6 @@ export class Products {
 
       return result.rows[0];
     } catch (error) {
-      console.log({ error });
       throw new Error(
         "error getting Product from products table error: " + error
       );
@@ -61,7 +59,6 @@ export class Products {
 
       return result.rows[0];
     } catch (error) {
-      console.log({ error });
       throw new Error("error creating new Product, error: " + error);
     }
   }
@@ -84,7 +81,6 @@ export class Products {
 
       return result.rows[0];
     } catch (error) {
-      console.log({ error });
       throw new Error("error updating  Product" + p.name + " error: " + error);
     }
   }
@@ -99,7 +95,6 @@ export class Products {
 
       return result.rows[0];
     } catch (error) {
-      console.log({ error });
       throw new Error("error deleting product, error: " + error);
     }
   }

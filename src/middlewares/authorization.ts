@@ -16,7 +16,6 @@ export const authorization = (
     jwt.verify(token as string, TOKEN as string);
     next();
   } catch (error) {
-    console.log({ error });
     res.status(401).json(`Access denied Invalid Token, error: ${error}`);
   }
 };

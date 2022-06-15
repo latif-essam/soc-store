@@ -1,11 +1,9 @@
 import { Category, Categorys } from "../models/category";
 import { Request, Response, Application } from "express";
-import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { authorization } from "./../middlewares/authorization";
 
 dotenv.config();
-const { TOKEN } = process.env;
 
 const store = new Categorys();
 
@@ -15,7 +13,6 @@ const index = async (_req: Request, res: Response) => {
 
     res.status(200).json(categorys);
   } catch (error) {
-    console.log({ error });
     res.status(400).json(error);
   }
 };
@@ -73,10 +70,10 @@ const destroy = async (req: Request, res: Response) => {
 
 const categoryRoutes = (app: Application) => {
   app.get("/api/categorys", index);
-  app.get("/api/categorys/:id", authorization, show);
-  app.post("/api/categorys", authorization, create);
-  app.put("/api/categorys/:id", authorization, update);
-  app.delete("/api/categorys/:id", authorization, destroy);
+  app.get("/api/categorys/:id", [authorization], show);
+  app.post("/api/categorys", [authorization], create);
+  app.put("/api/categorys/:id", [authorization], update);
+  app.delete("/api/categorys/:id", [authorization], destroy);
 };
 
 export default categoryRoutes;

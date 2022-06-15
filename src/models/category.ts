@@ -17,7 +17,6 @@ export class Categorys {
 
       return result.rows;
     } catch (error) {
-      console.log({ error });
       throw new Error(
         "Error getting categorys from categorys table error: " + error
       );
@@ -36,7 +35,6 @@ export class Categorys {
 
       return result.rows[0];
     } catch (error) {
-      console.log({ error });
       throw new Error(
         "Error getting Category from categorys table error: " + error
       );
@@ -53,7 +51,6 @@ export class Categorys {
 
       return result.rows[0];
     } catch (error) {
-      console.log({ error });
       throw new Error("Error creating new Category, error: " + error);
     }
   }
@@ -69,7 +66,6 @@ export class Categorys {
 
       return result.rows[0];
     } catch (error) {
-      console.log({ error });
       throw new Error("Error updating  Category" + c.name + " error: " + error);
     }
   }
@@ -84,7 +80,6 @@ export class Categorys {
 
       return result.rows[0];
     } catch (error) {
-      console.log({ error });
       throw new Error("Error deleting Category, error: " + error);
     }
   }

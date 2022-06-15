@@ -33,7 +33,7 @@ export class OrderProducts {
     try {
       const conn = await db.connect();
       const sql =
-        "INSERT INTO order_products (  prodcut_id,  order_id,  user_id,  product_quantity)";
+        "INSERT INTO order_products (prodcut_id,  order_id,  user_id,  product_quantity) VALUES($1,$2,$3,$4)";
 
       const result = await conn.query(sql, [
         ops.prodcut_id,
@@ -46,6 +46,23 @@ export class OrderProducts {
       return result.rows[0];
     } catch (error) {
       throw new Error(`Error adding producs to order, error: ${error}`);
+    }
+  }
+  async getOrderProducts(
+    order_id: number
+  ): Promise<OrderProduct[] | undefined> {
+    try {
+      const conn = await db.connect();
+      const sql =
+        "SELECT * FROM order_products INNER JOIN orders ON order_products.order_id = orders.id WHERE order_id=$1";
+
+      const result = await conn.query(sql, [order_id]);
+      conn.release();
+      return result.rows;
+    } catch (error) {
+      throw new Error(
+        `Error getting producs of order with id = ${order_id}, error: ${error}`
+      );
     }
   }
 }
