@@ -34,7 +34,6 @@ const create = async (req: Request, res: Response) => {
     const { user_id, status }: Order = req.body;
 
     const addedOrder = await store.create({ user_id, status });
-    // const token = jwt.sign({ order }, TOKEN as string);
     res.json(addedOrder);
   } catch (error) {
     res.status(400).json({ error });
@@ -76,8 +75,6 @@ const destroy = async (req: Request, res: Response) => {
 
 const orderRoutes = (app: Application) => {
   app.get("/api/orders/:user_id", [authorization], index);
-
-  // token is required here as stated in REQUIREMENTS.md
   app.get("/api/orders/:id", [authorization], show);
   app.post("/api/orders", [authorization], create);
   app.put("/api/orders/:id", [authorization], update);

@@ -28,12 +28,6 @@ const show = async (req: Request, res: Response) => {
 };
 
 const create = async (req: Request, res: Response) => {
-  // try {
-  //   jwt.verify(req.body.token, SECRET_TOKEN as string);
-  // } catch (error) {
-  //   res.status(401).json(`Invalid token, error: ${error}`);
-  //   return;
-  // }
   try {
     const { name, price, category, quantity }: Product = req.body;
     const addedProduct = await store.create({

@@ -39,28 +39,28 @@
 | **ENV**               | define the type of connection `dev` or `test` | dev             |
 | **BCRYPT_PASSWORD**   | secret password for the bcrypt lib            | my_secret_pass  |
 | **SALT_ROUNDS**       | no of hasing rounds                           | 8               |
-| **TOKEN**             | token constatnt name                          | awsome_token    |
+| **SECRET_TOKEN**      | token constatnt name                          | awsome_token    |
 
 ## APIs & Endpoints
 
-| route                | functionality / description                  |
-| -------------------- | -------------------------------------------- |
-| `/`                  | Main Route                                   |
-| `/api/users`         | create new user, get all users               |
-| `/api/users/:id`     | get, delete, and update user by id           |
-| `/api/auth`          | authenticate login user info, return a token |
-| `/api/products`      | create new product, get all products         |
-| `/api/products/:id`  | get, delete, and update product by id        |
-| `/api/orders`        | create new order, get all orders             |
-| `/api/orders/:id`    | get, delete, and update order by id          |
-| `/api/orders/:id/products`|get order Products                       |
-| `/api/orders/:id/products`|add product to order                       |
-| `/api/categorys`     | create new category, get all categorys       |
-| `/api/categorys/:id` | get, delete, and update category by id       |
-| `/api/categorys/:id/prodcuts` | get category products               |
-| `/api/categorys/:id/prodcuts` | add product to category             |
-| `/api/categorys/:id` | get, delete, and update category by id       |
-| `/invalid`           | handles invalid url / bad requests           |
+| route                         | functionality / description                  |
+| ----------------------------- | -------------------------------------------- |
+| `/`                           | Main Route                                   |
+| `/api/users`                  | create new user, get all users               |
+| `/api/users/:id`              | get, delete, and update user by id           |
+| `/api/auth`                   | authenticate login user info, return a token |
+| `/api/products`               | create new product, get all products         |
+| `/api/products/:id`           | get, delete, and update product by id        |
+| `/api/orders`                 | create new order, get all orders             |
+| `/api/orders/:id`             | get, delete, and update order by id          |
+| `/api/orders/:id/products`    | get order Products                           |
+| `/api/orders/:id/products`    | add product to order                         |
+| `/api/categorys`              | create new category, get all categorys       |
+| `/api/categorys/:id`          | get, delete, and update category by id       |
+| `/api/categorys/:id/prodcuts` | get category products                        |
+| `/api/categorys/:id/prodcuts` | add product to category                      |
+| `/api/categorys/:id`          | get, delete, and update category by id       |
+| `/invalid`                    | handles invalid url / bad requests           |
 
 ## Available Scripts
 

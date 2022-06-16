@@ -15,13 +15,19 @@ describe("User Endpoint:", async () => {
       async (user) => await store.destroy(user.id as unknown as number)
     );
   });
+
   describe("Test UnAuthorized endpoints:", () => {
     userApis.map((api) => {
       it(`${api.name} endpoint should return status of ${api.error_code}, ${
         api.msg
       } ${api.auth ? "[unAuthorized]" : "Token not required!"} `, async () => {
-        const res = await req[api.method](api.path);
-        expect(res.status).toBe(api.error_code);
+        try {
+          const res = await req[api.method](api.path);
+
+          expect(res.status).toBe(api.error_code);
+        } catch (error) {
+          console.log({ error });
+        }
       });
     });
   });
