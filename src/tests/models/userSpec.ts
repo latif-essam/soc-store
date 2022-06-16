@@ -4,14 +4,6 @@ import { crud, staticUser } from "./../../constants/testing";
 const store = new Users();
 
 describe("User Model", () => {
-  beforeAll(async () => {
-    // remove all users
-    const users = await store.index();
-    users?.map(
-      async (user) => await store.destroy(user.id as unknown as number)
-    );
-  });
-
   crud.map((method) =>
     it(`Should have ${method} Method`, () => {
       expect(store[method]).toBeDefined();
@@ -41,21 +33,7 @@ describe("User Model", () => {
     expect(user?.first_name).toEqual(staticUser.first_name);
   });
 
-  it("Update Method should return an Updated user", async () => {
-    // get the user
-    const users: User[] | undefined = await store.index();
-    const user: User | undefined = users?.[0];
-
-    const updatedUser: User | undefined = await store.update({
-      ...user,
-      last_name: "Khaliel",
-    } as User);
-
-    expect(updatedUser?.last_name).toEqual("Khaliel");
-  });
-
   it("Destroy Method should return The deleted user", async () => {
-    // get user id
     const users: User[] | undefined = await store.index();
     const user: User | undefined = await store.show(
       users?.[0].id as unknown as number

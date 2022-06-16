@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const { TOKEN } = process.env;
+const { SECRET_TOKEN } = process.env;
 
 export const authorization = (
   req: Request,
@@ -13,7 +13,7 @@ export const authorization = (
 ): void => {
   try {
     const token: string | undefined = req.headers.authorization?.split(" ")[1];
-    jwt.verify(token as string, TOKEN as string);
+    jwt.verify(token as string, SECRET_TOKEN as string);
     next();
   } catch (error) {
     res.status(401).json(`Access denied Invalid Token, error: ${error}`);

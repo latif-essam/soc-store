@@ -40,9 +40,10 @@ const create = async (req: Request, res: Response) => {
 
 const update = async (req: Request, res: Response) => {
   try {
-    const updatedCategory: Category = req.body;
+    const id: number = parseInt(req.params.id);
+    const { name }: Category = req.body;
 
-    const category = await store.update(updatedCategory);
+    const category = await store.update({ name, id });
 
     if (category) {
       res.status(200).json(category);
@@ -69,7 +70,7 @@ const destroy = async (req: Request, res: Response) => {
 };
 
 const categoryRoutes = (app: Application) => {
-  app.get("/api/categorys", index);
+  app.get("/api/categorys", [authorization], index);
   app.get("/api/categorys/:id", [authorization], show);
   app.post("/api/categorys", [authorization], create);
   app.put("/api/categorys/:id", [authorization], update);

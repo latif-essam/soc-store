@@ -9,7 +9,8 @@ export const userApis = [
     path: "/api/users",
     auth: true,
     method: "get",
-    code: 401,
+    error_code: 401,
+    valid_code: 200,
     msg: "",
   },
   {
@@ -17,7 +18,8 @@ export const userApis = [
     path: "/api/users/1",
     auth: true,
     method: "get",
-    code: 401,
+    error_code: 401,
+    valid_code: 200,
     msg: "",
   },
   {
@@ -25,7 +27,8 @@ export const userApis = [
     path: "/api/users/1",
     auth: true,
     method: "put",
-    code: 401,
+    error_code: 401,
+    valid_code: 202,
     msg: "",
   },
   {
@@ -33,7 +36,8 @@ export const userApis = [
     path: "/api/users/1",
     auth: true,
     method: "delete",
-    code: 401,
+    error_code: 401,
+    valid_code: 200,
     msg: "",
   },
   {
@@ -41,7 +45,8 @@ export const userApis = [
     path: "/api/users",
     auth: false,
     method: "post",
-    code: 401,
+    error_code: 401,
+    valid_code: 200,
     msg: "missing required fileds",
   },
   {
@@ -49,7 +54,8 @@ export const userApis = [
     path: "/api/signup",
     auth: false,
     method: "post",
-    code: 200,
+    error_code: 200,
+    valid_code: 200,
     msg: "",
   },
   {
@@ -57,7 +63,8 @@ export const userApis = [
     path: "/api/login",
     auth: false,
     method: "post",
-    code: 401,
+    error_code: 401,
+    valid_code: 200,
     msg: "missing required fields",
   },
 ];
@@ -68,6 +75,7 @@ export const productsApis = [
     auth: false,
     method: "get",
     code: 200,
+    valid_code: 200,
     msg: "",
   },
   {
@@ -76,22 +84,7 @@ export const productsApis = [
     auth: false,
     method: "get",
     code: 200,
-    msg: "",
-  },
-  {
-    name: "Update product",
-    path: "/api/products/1",
-    auth: true,
-    method: "put",
-    code: 401,
-    msg: "",
-  },
-  {
-    name: "Delete product",
-    path: "/api/products/1",
-    auth: true,
-    method: "delete",
-    code: 401,
+    valid_code: 200,
     msg: "",
   },
   {
@@ -100,6 +93,25 @@ export const productsApis = [
     auth: true,
     method: "post",
     code: 401,
+    valid_code: 200,
+    msg: "",
+  },
+  {
+    name: "Update product",
+    path: "/api/products/1",
+    auth: true,
+    method: "put",
+    code: 401,
+    valid_code: 400,
+    msg: "",
+  },
+  {
+    name: "Delete product",
+    path: "/api/products/1",
+    auth: true,
+    method: "delete",
+    code: 401,
+    valid_code: 200,
     msg: "",
   },
 ];
@@ -107,36 +119,40 @@ export const productsApis = [
 export const orderProductsApis = [
   {
     name: "Get all order Products",
-    path: "/api/orders/:id/products",
+    path: "/api/orders/1/products",
     auth: true,
     method: "get",
     code: 401,
+    valid_code: 200,
     msg: "",
   },
   {
     name: "Add Product to order",
-    path: "/api/orders/:id/products",
+    path: "/api/orders/1/products",
     auth: true,
     method: "post",
     code: 401,
+    valid_code: 200,
     msg: "",
   },
 ];
 export const categoryProductsApis = [
   {
     name: "Get Category Products",
-    path: "/api/categorys/:id/products",
+    path: "/api/categorys/1/products",
     auth: true,
     method: "get",
     code: 401,
+    valid_code: 200,
     msg: "",
   },
   {
     name: "Add Product to category",
-    path: "/api/categorys/:id/products",
+    path: "/api/categorys/1/products",
     auth: true,
     method: "post",
     code: 401,
+    valid_code: 200,
     msg: "",
   },
 ];
@@ -144,10 +160,11 @@ export const categoryProductsApis = [
 export const ordersApis = [
   {
     name: "Get all orders",
-    path: "/api/orders/:user_id",
+    path: "/api/orders/1",
     auth: true,
     method: "get",
     code: 401,
+    valid_code: 200,
     msg: "",
   },
   {
@@ -156,22 +173,7 @@ export const ordersApis = [
     auth: true,
     method: "get",
     code: 401,
-    msg: "",
-  },
-  {
-    name: "Update order",
-    path: "/api/orders/1",
-    auth: true,
-    method: "put",
-    code: 401,
-    msg: "",
-  },
-  {
-    name: "Delete order",
-    path: "/api/orders/1",
-    auth: true,
-    method: "delete",
-    code: 401,
+    valid_code: 200,
     msg: "",
   },
   {
@@ -180,16 +182,45 @@ export const ordersApis = [
     auth: true,
     method: "post",
     code: 401,
+    valid_code: 200,
+    msg: "",
+  },
+  {
+    name: "Update order",
+    path: "/api/orders/1",
+    auth: true,
+    method: "put",
+    code: 401,
+    valid_code: 200,
+    msg: "",
+  },
+  {
+    name: "Delete order",
+    path: "/api/orders/1",
+    auth: true,
+    method: "delete",
+    code: 401,
+    valid_code: 200,
     msg: "",
   },
 ];
 export const categorysApis = [
   {
+    name: "Create category",
+    path: "/api/categorys",
+    auth: true,
+    method: "post",
+    code: 401,
+    valid_code: 200,
+    msg: "",
+  },
+  {
     name: "Get all categorys",
     path: "/api/categorys",
     auth: true,
     method: "get",
-    code: 200,
+    code: 401,
+    valid_code: 200,
     msg: "",
   },
   {
@@ -198,6 +229,7 @@ export const categorysApis = [
     auth: true,
     method: "get",
     code: 401,
+    valid_code: 200,
     msg: "",
   },
   {
@@ -206,6 +238,7 @@ export const categorysApis = [
     auth: true,
     method: "put",
     code: 401,
+    valid_code: 200,
     msg: "",
   },
   {
@@ -214,28 +247,10 @@ export const categorysApis = [
     auth: true,
     method: "delete",
     code: 401,
-    msg: "",
-  },
-  {
-    name: "Create category",
-    path: "/api/categorys",
-    auth: true,
-    method: "post",
-    code: 401,
+    valid_code: 202,
     msg: "",
   },
 ];
-// export const apis = [
-//   { name: "Users", path: "/api/users" },
-//   { name: "products", path: "/api/products" },
-//   { name: "Users", path: "/api/users" },
-//   { name: "Users", path: "/api/users" },
-//   { name: "Users", path: "/api/users" },
-//   "users",
-//   "products",
-//   "orders",
-//   "categorys",
-// ];
 
 export const staticUser: User = {
   first_name: "latif",

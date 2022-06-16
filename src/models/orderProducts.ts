@@ -2,7 +2,7 @@ import db from "./../database";
 
 export type OrderProduct = {
   id?: number;
-  prodcut_id: number;
+  product_id: number;
   order_id: number;
   user_id: number;
   product_quantity: number;
@@ -23,20 +23,19 @@ export class OrderProducts {
 
       if (order.status === "complete") {
         throw new Error(
-          `Error adding produc: ${ops.prodcut_id} to order: ${ops.order_id}  as order's status is ${order.status}`
+          `Error adding product with id: ${ops.product_id} to order: ${ops.order_id}  as order's status is ${order.status}`
         );
       }
     } catch (error) {
-      throw new Error(`Error adding producs to order, error: ${error}`);
+      throw new Error(`Error adding product to order, error: ${error}`);
     }
     // add products to orderProducts table
     try {
       const conn = await db.connect();
       const sql =
-        "INSERT INTO order_products (prodcut_id,  order_id,  user_id,  product_quantity) VALUES($1,$2,$3,$4)";
-
+        "INSERT INTO order_products (product_id, order_id, user_id, product_quantity) VALUES($1,$2,$3,$4)";
       const result = await conn.query(sql, [
-        ops.prodcut_id,
+        ops.product_id,
         ops.order_id,
         ops.user_id,
         ops.product_quantity,
@@ -45,7 +44,7 @@ export class OrderProducts {
       conn.release();
       return result.rows[0];
     } catch (error) {
-      throw new Error(`Error adding producs to order, error: ${error}`);
+      throw new Error(`Error adding product to order, error: ${error}`);
     }
   }
   async getOrderProducts(
@@ -61,7 +60,7 @@ export class OrderProducts {
       return result.rows;
     } catch (error) {
       throw new Error(
-        `Error getting producs of order with id = ${order_id}, error: ${error}`
+        `Error getting product of order with id = ${order_id}, error: ${error}`
       );
     }
   }

@@ -30,13 +30,17 @@ describe("Order Model", () => {
   });
 
   it("Show Method should return a single  Order", async () => {
-    const order: Order | undefined = await orderStore.show(1);
-    expect(order?.id).toEqual(1);
+    const orders = await orderStore.index(1);
+    const order: Order | undefined = await orderStore.show(
+      orders?.[0].id as unknown as number
+    );
+    expect(order?.user_id).toEqual(1);
   });
 
   it("Update Method should return a new updated Order", async () => {
+    const orders = await orderStore.index(1);
     const updatedOrder: Order | undefined = await orderStore.update({
-      id: 1,
+      id: orders?.[0].id as unknown as number,
       user_id: 1,
       status: "completed",
     });
@@ -44,7 +48,10 @@ describe("Order Model", () => {
   });
 
   it("Delete Method should return a deleted Order", async () => {
-    const deletedOrder: Order | undefined = await orderStore.destroy(1);
-    expect(deletedOrder?.id).toEqual(1);
+    const orders = await orderStore.index(1);
+    const deletedOrder: Order | undefined = await orderStore.destroy(
+      orders?.[0].id as unknown as number
+    );
+    expect(deletedOrder?.user_id).toEqual(1);
   });
 });

@@ -69,7 +69,6 @@ export class Products {
       const conn = await db.connect();
       const sql =
         "UPDATE products SET name=$1, price=$2, quantity=$3, category=$4 WHERE id=$5 RETURNING *";
-
       const result = await conn.query(sql, [
         p.name,
         p.price,
@@ -81,6 +80,7 @@ export class Products {
 
       return result.rows[0];
     } catch (error) {
+      console.log({ error });
       throw new Error("error updating  Product" + p.name + " error: " + error);
     }
   }

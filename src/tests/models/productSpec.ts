@@ -7,7 +7,9 @@ describe("Product Model", () => {
   beforeAll(async () => {
     // remove all products
     const products = await store.index();
-    products?.map((product) => store.destroy(product.id as unknown as number));
+    products?.map(
+      async (product) => await store.destroy(product.id as unknown as number)
+    );
   });
 
   crud.map((method) =>
